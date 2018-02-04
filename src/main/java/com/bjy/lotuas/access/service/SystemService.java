@@ -8,20 +8,23 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bjy.lotuas.access.entity.TSystemBean;
 import com.bjy.lotuas.access.vo.SystemVo;
+import com.bjy.lotuas.common.easyui.EasyuiGridResult;
 import com.bjy.lotuas.common.exception.VOCastException;
 import com.bjy.lotuas.common.service.BaseService;
 import com.bjy.lotuas.common.util.VoUtil;
 import com.bjy.lotuas.common.vo.CommonResultVo;
-import com.bjy.lotuas.common.vo.PageData;
 import com.bjy.lotuas.common.vo.PaginatedHelper;
 
 @Service
 public class SystemService extends BaseService{
 	
-	public PageData<TSystemBean> listPageSystems(PaginatedHelper paginatedHelper, LinkedHashMap<String, String> orderMap) {
+	
+	
+	
+	public EasyuiGridResult listPageSystems(PaginatedHelper paginatedHelper, LinkedHashMap<String, String> orderMap) {
 		long count=super.getCount(TSystemBean.class);
 		List<TSystemBean> systems=super.getList(TSystemBean.class, paginatedHelper, orderMap);
-		return new PageData<TSystemBean>(systems, count);
+		return new EasyuiGridResult(systems, count);
 	}
 	
 	
