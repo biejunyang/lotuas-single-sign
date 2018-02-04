@@ -1,0 +1,7 @@
+@charset "UTF-8";
+.form_tbl_cls{
+	width: 98%;margin: auto;margin-top: 5px;
+}
+.form_tbl_cls tr{
+	height: 25px;
+}
