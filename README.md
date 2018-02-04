@@ -1,3 +1,4 @@
+# spring-boot + spring datajpa + hibernate + hibernateTemplate + jdbcTemplate
 #1、pom.xml文件：
 	#1.1、修改代码后自动生效依赖，Reload Java classes without restarting the container
 		<dependency>
@@ -53,4 +54,4 @@
 		    <groupId>mysql</groupId>
 		    <artifactId>mysql-connector-java</artifactId>
 		</dependency>
-         
+        
