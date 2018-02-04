@@ -1,1 +1,1 @@
-# lotuas-single-sign
+# spring-boot + spring datajpa + hibernate + hibernateTemplate + jdbcTemplate
