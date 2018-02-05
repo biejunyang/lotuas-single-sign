@@ -34,7 +34,7 @@ $.ajaxSetup({
 	},error:function(XMLHttpRequest, textStatus){
 		var sessionstatus = XMLHttpRequest.getResponseHeader("session_timeout_status");
 		if (sessionstatus != "timeout") {
-			$.messager.alert('提示', "请求超时，网络异常，请与管理员联系!", 'info');
+			$.messager.alert('提示', "请求超时，网络异常，请与管理员联系!", 'error');
 		}
 	}
 });
