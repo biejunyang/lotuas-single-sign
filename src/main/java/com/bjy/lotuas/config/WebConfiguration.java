@@ -8,6 +8,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import com.bjy.lotuas.access.interceptor.AuthorityInterceptor;
 import com.bjy.lotuas.config.interceptor.RequestTimeInterceptor;
 
 @Configuration
@@ -21,8 +22,8 @@ public class WebConfiguration extends WebMvcConfigurerAdapter{
 	 * 映射静态文件路径路径
 	 */
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//		registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");
-//		registry.addResourceHandler("/assets/**").addResourceLocations("/resources/");
+		registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");
+		registry.addResourceHandler("/assets/**").addResourceLocations("/resources/");
 	}
 	
 
@@ -31,9 +32,13 @@ public class WebConfiguration extends WebMvcConfigurerAdapter{
 	 * 添加拦截器
 	 */
 	public void addInterceptors(InterceptorRegistry registry) {
+		registry.addInterceptor(new AuthorityInterceptor()).addPathPatterns("/*")
+			.excludePathPatterns("/resources/**", "/loginPage", "/loginAuth", "/logout", "/error");
+		
 		OpenSessionInViewInterceptor osiv=new OpenSessionInViewInterceptor();
 		osiv.setSessionFactory(sessionFactory);
 		registry.addWebRequestInterceptor(osiv);
+		
 		registry.addInterceptor(new RequestTimeInterceptor());
 	}
 	

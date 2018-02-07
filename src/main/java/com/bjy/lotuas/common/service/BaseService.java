@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
@@ -19,6 +20,8 @@ import org.springframework.orm.hibernate5.HibernateTemplate;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.bjy.lotuas.access.controller.AccessController;
+import com.bjy.lotuas.access.entity.TUserBean;
 import com.bjy.lotuas.common.dao.HqlUtil;
 import com.bjy.lotuas.common.dao.QueryDao;
 import com.bjy.lotuas.common.util.EstimateTypeUtil;
@@ -37,38 +40,29 @@ public class BaseService implements QueryDao
 	@Resource(name="queryDaoImpl")
 	private QueryDao queryDao;
 	
-//	@Autowired
-//	protected HttpSession httpSession;
+	@Autowired
+	protected HttpSession httpSession;
 	
 	
 
-//	/**
-//	 * 获取系统登录用户
-//	 * @return
-//	 */
-//	public UserBean getLoginUser(){
-//		Object user=httpSession.getAttribute(AccessConstant.SESSION_LOGION_USER_TOKEN);
-//		return user==null? null : (UserBean)user;
-//	}
-//	
-//	/**
-//	 * 获取系统登录(供应商id或客户id)
-//	 * @return
-//	 */
-//	public TClientBean getLoginClient(){
-//		Object client=httpSession.getAttribute(AccessConstant.SESSION_LOGION_CLIENT_TOKEN);
-//		return client==null? null : (TClientBean)client;
-//	}
-//	
-//	
-//	/**
-//	 * 获取系统登录用户id
-//	 * @return
-//	 */
-//	public Integer getLoginUserId(){
-//		UserBean user=getLoginUser();
-//		return user==null ? null : user.getUserId();
-//	}
+	/**
+	 * 获取系统登录用户
+	 * @return
+	 */
+	public TUserBean getLoginUser(){
+		Object user=httpSession.getAttribute(AccessController.SESSION_LOGION_USER_TOKEN);
+		return user==null? null : (TUserBean)user;
+	}
+	
+	
+	/**
+	 * 获取系统登录用户id
+	 * @return
+	 */
+	public Integer getLoginUserId(){
+		TUserBean user=getLoginUser();
+		return user==null ? null : user.getUserId();
+	}
 	
 	
 	/**

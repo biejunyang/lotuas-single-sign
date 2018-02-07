@@ -1,4 +1,4 @@
-package com.bjy.lotuas.common.exception;
+package com.bjy.lotuas.access.exception;
 
 public class NoAccessException extends RuntimeException {
 	private static final long serialVersionUID = 2371358080201618682L;
