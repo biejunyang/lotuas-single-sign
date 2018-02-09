@@ -37,20 +37,22 @@ public class TUserBean extends BaseEntity {
 	@Column(name="password", length=100, nullable=false)
 	private String password;
 	
+	@Column(name="email")
 	private String email;
 	
+	@Column(name="real_name")
 	private String realName;
 	
+	@Column(name="phone")
 	private String phone;
 	
+	@Column(name="address")
 	private String address;
 	
 
 	@ManyToMany(cascade=CascadeType.REFRESH,targetEntity=TRoleBean.class)
 	@JoinTable(name="t_user_role",joinColumns=@JoinColumn(name="user_id"), inverseJoinColumns=@JoinColumn(name="role_id"))
 	private List<TRoleBean> roles=new ArrayList<TRoleBean>();
-	
-	
 	
 	public TUserBean() {
 		

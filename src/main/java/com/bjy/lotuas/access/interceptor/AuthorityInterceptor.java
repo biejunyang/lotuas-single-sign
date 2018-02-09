@@ -1,5 +1,7 @@
 package com.bjy.lotuas.access.interceptor;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,6 +12,7 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import com.bjy.lotuas.access.annotation.Permission;
 import com.bjy.lotuas.access.controller.AccessController;
 import com.bjy.lotuas.access.entity.TUserBean;
+import com.bjy.lotuas.access.exception.NoAccessException;
 import com.bjy.lotuas.access.exception.SessionTimeOutException;
 import com.bjy.lotuas.access.service.AccessService;
 import com.bjy.lotuas.config.SystemContext;
@@ -30,31 +33,23 @@ public class AuthorityInterceptor extends HandlerInterceptorAdapter
 		if(user!=null) {
 			if(user.getUsername().equals(AccessController.SUPER_ADMIN))
 				return true;
-			
 			//请求权限校验
 			HandlerMethod handlerMethod=(HandlerMethod)handler;
 			Permission permission=handlerMethod.getMethodAnnotation(Permission.class);
 			if(permission!=null) {
-				
-//				if(accessService.isNeedAuthUrl(url)){
-//					if(accessService.authUrl(url)){					
-//						
-//						return true;
-//					}else{
-//						throw new NoAccessException("没有授权对该页面的操作，请与管理员联系");
-//					}
-//				}
-				
+				List<String> permissins=accessService.getUserPermissins(user);
+				if(!permissins.contains(permission.value())) {
+					throw new NoAccessException("没有授权对该页面的操作，请与管理员联系");
+				}
 			}
-		
 			return true;
 		}else {
+			//ajax请求超时
 			if (request.getHeader("x-requested-with") != null
 					&& request.getHeader("x-requested-with").equalsIgnoreCase(
 							"XMLHttpRequest")) {
-				response.setHeader("session_timeout_status", "timeout");// 在响应头设置session状态
 				throw new SessionTimeOutException("系统超时退出，请重新登录！");
-			} else {
+			}else {
 				response.sendRedirect(request.getContextPath() + "/loginPage");
 				return false;
 			}

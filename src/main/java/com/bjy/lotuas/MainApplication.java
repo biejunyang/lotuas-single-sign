@@ -17,7 +17,6 @@ public class MainApplication
 //		return builder.sources(MainApplication.class);
 //	}
 //	
-//	OpenEntityManagerInViewInterceptor
 
     public static void main( String[] args )
     {

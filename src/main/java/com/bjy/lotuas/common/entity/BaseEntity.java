@@ -14,7 +14,7 @@ public abstract class BaseEntity implements Serializable{
 	private Integer createId;
 	
 	@Column(name="create_time")
-	private Date createTime;
+	private Date createTime=new Date();
 	
 	@Column(name="update_id")
 	private Integer updateId;
@@ -23,7 +23,7 @@ public abstract class BaseEntity implements Serializable{
 	private Date updateTime;
 	
 	@Column(name="delete_flag", nullable=false)
-	private int deleteFlag=0;
+	private int deleteFlag=0;//逻辑删除标志
 	
 	public Integer getCreateId() {
 		return createId;

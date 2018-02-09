@@ -2,6 +2,7 @@ package com.bjy.lotuas.config;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.orm.hibernate5.support.OpenSessionInViewInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -32,7 +33,7 @@ public class WebConfiguration extends WebMvcConfigurerAdapter{
 	 * 添加拦截器
 	 */
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new AuthorityInterceptor()).addPathPatterns("/*")
+		registry.addInterceptor(new AuthorityInterceptor()).addPathPatterns("/**")
 			.excludePathPatterns("/resources/**", "/loginPage", "/loginAuth", "/logout", "/error");
 		
 		OpenSessionInViewInterceptor osiv=new OpenSessionInViewInterceptor();
@@ -106,11 +107,11 @@ public class WebConfiguration extends WebMvcConfigurerAdapter{
 	/**
 	 * 实现HandlerExceptionResolver接口自定义统一异常处理器 
 	 * @return
+	 */
 	@Bean
 	public CommonExceptionResolver commonExceptionResolver() {
 		return new CommonExceptionResolver();
 	}
-	 */
 	
 	
 	/**

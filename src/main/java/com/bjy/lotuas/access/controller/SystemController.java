@@ -1,5 +1,10 @@
 package com.bjy.lotuas.access.controller;
 
+import java.io.IOException;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,8 +43,15 @@ public class SystemController {
 	 */
 	@RequestMapping("listSystems")
 	@ResponseBody
-	public Object listSystems(Boolean pagable, PaginatedHelper paginatedHelper, String sort) {
+	public Object listSystems(Boolean pagable, PaginatedHelper paginatedHelper, String sort, HttpServletRequest request) {
+		try {
+			System.err.println(IOUtils.toString(request.getInputStream(), "utf-8"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		if(pagable!=null && pagable) {
+			systemService=null;
 			return systemService.listPageSystems(paginatedHelper, HqlUtil.getSortMap(sort));
 		}else {
 			return systemService.getList(TSystemBean.class, HqlUtil.getSortMap(sort));

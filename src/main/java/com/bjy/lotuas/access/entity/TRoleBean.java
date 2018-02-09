@@ -3,11 +3,14 @@ package com.bjy.lotuas.access.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -30,9 +33,13 @@ public class TRoleBean extends BaseEntity{
 	private String roleDesc;
 	
 	
-	@ManyToMany(mappedBy="roles")
+	@ManyToMany(mappedBy="roles", cascade=CascadeType.REFRESH)
 	private List<TUserBean> users=new ArrayList<TUserBean>();
 
+	@ManyToMany(cascade=CascadeType.REFRESH,targetEntity=TResourceBean.class)
+	@JoinTable(name="t_role_resource",joinColumns=@JoinColumn(name="role_id"), inverseJoinColumns=@JoinColumn(name="resource_id"))
+	private List<TResourceBean> resources=new ArrayList<TResourceBean>();
+	
 
 	public Integer getRoleId() {
 		return roleId;
@@ -71,6 +78,16 @@ public class TRoleBean extends BaseEntity{
 
 	public void setUsers(List<TUserBean> users) {
 		this.users = users;
+	}
+
+
+	public List<TResourceBean> getResources() {
+		return resources;
+	}
+
+
+	public void setResources(List<TResourceBean> resources) {
+		this.resources = resources;
 	}
 
 	

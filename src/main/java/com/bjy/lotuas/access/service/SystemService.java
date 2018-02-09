@@ -19,8 +19,6 @@ import com.bjy.lotuas.common.vo.PaginatedHelper;
 public class SystemService extends BaseService{
 	
 	
-	
-	
 	public EasyuiGridResult listPageSystems(PaginatedHelper paginatedHelper, LinkedHashMap<String, String> orderMap) {
 		long count=super.getCount(TSystemBean.class);
 		List<TSystemBean> systems=super.getList(TSystemBean.class, paginatedHelper, orderMap);

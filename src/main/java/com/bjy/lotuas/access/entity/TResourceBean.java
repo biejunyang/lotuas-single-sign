@@ -1,11 +1,16 @@
 package com.bjy.lotuas.access.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -45,6 +50,10 @@ public class TResourceBean extends BaseEntity{
 	@JoinColumn(name="parent_id")
 	private TResourceBean parentResource;
 
+	
+	@ManyToMany(cascade=CascadeType.REFRESH, mappedBy="resources")
+	private List<TRoleBean> roles=new ArrayList<TRoleBean>();
+	
 	public Integer getResourceId() {
 		return resourceId;
 	}
@@ -115,6 +124,14 @@ public class TResourceBean extends BaseEntity{
 
 	public void setParentResource(TResourceBean parentResource) {
 		this.parentResource = parentResource;
+	}
+
+	public List<TRoleBean> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(List<TRoleBean> roles) {
+		this.roles = roles;
 	}
 
 	

@@ -20,20 +20,23 @@ function openPage(title, url){
 
 
 /**
- * 为全部的ajax
+ * 为全部的ajax设置默认参数
  */
 $.ajaxSetup({
 	contentType : "application/x-www-form-urlencoded;charset=utf-8",
+	type: "POST",
 	complete : function(XMLHttpRequest, textStatus) {
-		var sessionstatus = XMLHttpRequest.getResponseHeader("session_timeout_status");		
-		if (sessionstatus == "timeout") {
-			
-		}else if(sessionstatus == "noClientInfo"){
-			
-		}		
-	},error:function(XMLHttpRequest, textStatus){
-		var sessionstatus = XMLHttpRequest.getResponseHeader("session_timeout_status");
-		if (sessionstatus != "timeout") {
+		var exceptionType = XMLHttpRequest.getResponseHeader("exceptionType");		
+		if (exceptionType == "SessionTimeOutException") {
+			$.messager.alert('提示', "登录超时间，3秒后跳转到登录页面!!!", 'error',function(){
+				window.location=JS_CONTEXT+"/loginPage";
+			});
+			setInterval(() => {
+				window.location=JS_CONTEXT+"/loginPage";
+			}, 5000);
+		}else if(exceptionType == "NoAccessException") {
+			$.messager.alert('提示', "没有权限访问该请求", 'error');
+		}else if(exceptionType == "Exception") {
 			$.messager.alert('提示', "请求超时，网络异常，请与管理员联系!", 'error');
 		}
 	}

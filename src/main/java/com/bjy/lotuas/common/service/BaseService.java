@@ -24,6 +24,7 @@ import com.bjy.lotuas.access.controller.AccessController;
 import com.bjy.lotuas.access.entity.TUserBean;
 import com.bjy.lotuas.common.dao.HqlUtil;
 import com.bjy.lotuas.common.dao.QueryDao;
+import com.bjy.lotuas.common.entity.BaseEntity;
 import com.bjy.lotuas.common.util.EstimateTypeUtil;
 import com.bjy.lotuas.common.util.VoUtil;
 import com.bjy.lotuas.common.vo.PaginatedHelper;
@@ -42,9 +43,8 @@ public class BaseService implements QueryDao
 	
 	@Autowired
 	protected HttpSession httpSession;
-	
-	
 
+	
 	/**
 	 * 获取系统登录用户
 	 * @return
@@ -97,13 +97,13 @@ public class BaseService implements QueryDao
 	 * @param entity
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void saveTarget(Object entity){
+	public void saveTarget(BaseEntity entity){
 		hibernateTemplate.save(entity);
 	}
 	
 	
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void saveOrUpdate(Object entity){
+	public void saveOrUpdate(BaseEntity entity){
 		hibernateTemplate.saveOrUpdate(entity);
 	}
 	
@@ -113,7 +113,7 @@ public class BaseService implements QueryDao
 	 * @param entity
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void updateTarget(Object entity){
+	public void updateTarget(BaseEntity entity){
 		hibernateTemplate.update(entity);
 	}
 
@@ -150,7 +150,7 @@ public class BaseService implements QueryDao
 	 * @param entity
 	 */
 	@Transactional(propagation=Propagation.REQUIRED)
-	public void delete(Object entity){
+	public void delete(BaseEntity entity){
 		hibernateTemplate.delete(entity);
 	}
 
